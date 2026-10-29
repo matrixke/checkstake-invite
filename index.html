@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Checkstake — Shape what we build next</title>
+    <meta
+      name="description"
+      content="3-minute survey. Help build Kenya’s stake chess arena — bots, puzzles, and M-Pesa. No spam."
+    />
+    <meta name="robots" content="noindex,nofollow" />
+
+    <!-- Filled at deploy time if needed; absolute URLs required for WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Checkstake" />
+    <meta property="og:title" content="Checkstake — Play, Compete & Earn" />
+    <meta
+      property="og:description"
+      content="3-minute survey. Help build Kenya’s stake chess arena — bots, puzzles, and M-Pesa. No spam."
+    />
+    <meta property="og:url" content="https://matrixke.github.io/checkstake-invite/" />
+    <meta property="og:image" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg" />
+    <meta property="og:image:secure_url" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1376" />
+    <meta property="og:image:height" content="768" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Checkstake — Play, Compete & Earn" />
+    <meta
+      name="twitter:description"
+      content="3-minute survey. Help build Kenya’s stake chess arena. No spam."
+    />
+    <meta name="twitter:image" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg" />
+
+    <link rel="icon" href="/brand/mark-only-green.png" type="image/png" />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #1c1b19;
+        --card: #262421;
+        --text: #f3efe8;
+        --muted: #a8a29a;
+        --play: #81b64c;
+        --play-fg: #14200a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        font-family: Georgia, 'Times New Roman', serif;
+        background:
+          radial-gradient(ellipse 80% 50% at 50% -10%, rgba(129, 182, 76, 0.28), transparent 70%),
+          var(--bg);
+        color: var(--text);
+        display: grid;
+        place-items: center;
+        padding: 1.25rem;
+      }
+      .card {
+        width: min(100%, 26rem);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.25rem;
+        overflow: hidden;
+        background: var(--card);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        font-family: system-ui, -apple-system, Segoe UI, sans-serif;
+      }
+      .hero {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        background: #111;
+      }
+      .body {
+        padding: 1.35rem 1.4rem 1.5rem;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.85rem;
+      }
+      .brand img {
+        width: 2.5rem;
+        height: 2.5rem;
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.35rem;
+        letter-spacing: -0.02em;
+      }
+      .tag {
+        margin: 0.15rem 0 0;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+      p {
+        margin: 0 0 1.1rem;
+        line-height: 1.5;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      a.cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        width: 100%;
+        min-height: 3rem;
+        border-radius: 0.75rem;
+        background: var(--play);
+        color: var(--play-fg);
+        font-weight: 700;
+        text-decoration: none;
+      }
+      .note {
+        margin: 0.85rem 0 0;
+        text-align: center;
+        font-size: 0.7rem;
+        color: #78716c;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <img class="hero" src="/og-survey.jpg" alt="Checkstake" width="1376" height="768" />
+      <div class="body">
+        <div class="brand">
+          <img src="/brand/mark-only-green.svg" alt="" />
+          <div>
+            <h1>Checkstake</h1>
+            <p class="tag">Play · Compete · Earn</p>
+          </div>
+        </div>
+        <p>
+          3 minutes. Honest answers shape Kenya’s stake chess arena — bots, puzzles, and M-Pesa. No
+          spam. Ever.
+        </p>
+        <a class="cta" href="https://forms.gle/FuNVjKKuPASwY3Qc7" rel="noopener">
+          Fill the survey <span aria-hidden="true">→</span>
+        </a>
+        <p class="note">Opens Google Forms · about 3 minutes</p>
+      </div>
+    </main>
+  </body>
+</html>

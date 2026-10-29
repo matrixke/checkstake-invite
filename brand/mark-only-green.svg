@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none">
+  <!-- Tight, transparent Checkstake mark — fills the frame -->
+  <g fill="#81B64C" transform="translate(512 512) scale(1.18) translate(-512 -520)">
+    <rect x="474" y="112" width="76" height="190" rx="5"/>
+    <rect x="400" y="169" width="224" height="68" rx="5"/>
+    <path d="M352 326 Q352 300 382 292 L642 292 Q672 300 672 326 L600 430 Q585 451 585 474 L439 474 Q439 451 424 430 Z"/>
+    <path d="M430 470 L594 470 L630 548 Q638 568 638 590 L386 590 Q386 568 394 548 Z"/>
+    <circle cx="512" cy="708" r="198" fill="none" stroke="#81B64C" stroke-width="58"/>
+    <circle cx="512" cy="708" r="125" fill="none" stroke="#81B64C" stroke-width="24"/>
+    <circle cx="512" cy="674" r="38"/>
+    <path d="M490 692 L534 692 L551 764 L473 764 Z"/>
+  </g>
+</svg>
