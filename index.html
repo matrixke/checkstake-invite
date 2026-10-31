@@ -6,51 +6,65 @@
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
     />
-    <meta name="theme-color" content="#1c1b19" />
+    <meta name="theme-color" content="#141310" />
     <meta name="color-scheme" content="dark" />
-    <title>Checkstake — Chess that pays</title>
+    <title>Kenya waitlist open — Checkstake</title>
     <meta
       name="description"
-      content="Checkstake is a competitive chess platform where skill turns into earnings. Now piloting in Kenya."
+      content="Kenya’s staked chess waitlist is open. Fund in KES, lock CMT in escrow, and let skill decide the pot. Early players shape the pilot — claim your spot."
     />
     <meta name="robots" content="noindex,nofollow" />
 
+    <!-- WhatsApp / iMessage / Telegram preview — keep title short, description punchy -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Checkstake" />
-    <meta property="og:title" content="Checkstake — Chess that pays" />
+    <meta property="og:locale" content="en_KE" />
+    <meta property="og:title" content="🇰🇪 Kenya waitlist is open — Checkstake" />
     <meta
       property="og:description"
-      content="A competitive chess platform where skill turns into earnings. Piloting in Kenya."
+      content="Skill-based staked chess for Kenya. Escrow pots. Free training. Join the waitlist before seats fill — early players get first access."
     />
     <meta property="og:url" content="https://matrixke.github.io/checkstake-invite/" />
-    <meta property="og:image" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg?v=2" />
-    <meta property="og:image:secure_url" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg?v=2" />
+    <meta property="og:image" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg?v=3" />
+    <meta property="og:image:secure_url" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg?v=3" />
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:width" content="1376" />
     <meta property="og:image:height" content="768" />
+    <meta property="og:image:alt" content="Checkstake — staked chess for Kenya" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Checkstake — Chess that pays" />
+    <meta name="twitter:title" content="🇰🇪 Kenya waitlist is open — Checkstake" />
     <meta
       name="twitter:description"
-      content="A competitive chess platform where skill turns into earnings. Piloting in Kenya."
+      content="Skill-based staked chess for Kenya. Escrow pots. Free training. Join the waitlist before seats fill."
     />
-    <meta name="twitter:image" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg?v=2" />
+    <meta name="twitter:image" content="https://matrixke.github.io/checkstake-invite/og-survey.jpg?v=3" />
 
     <base href="https://matrixke.github.io/checkstake-invite/" />
     <link rel="icon" href="/checkstake-invite/brand/mark-only-green.png" type="image/png" />
     <link rel="apple-touch-icon" href="/checkstake-invite/brand/mark-only-green.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
       :root {
         color-scheme: dark;
-        --bg: #1c1b19;
-        --card: #262421;
-        --text: #f3efe8;
-        --muted: #a8a29a;
-        --dim: #78716c;
+        --bg: #141310;
+        --panel: #1e1c18;
+        --text: #f4efe6;
+        --muted: #b7aea0;
+        --dim: #7f766a;
         --play: #81b64c;
-        --play-fg: #14200a;
-        --border: rgba(255, 255, 255, 0.08);
+        --play-fg: #102008;
+        --border: rgba(244, 239, 230, 0.1);
+        --glow: rgba(129, 182, 76, 0.22);
+        --font-display: 'Fraunces', Georgia, 'Times New Roman', serif;
+        --font-body: 'Manrope', system-ui, sans-serif;
       }
 
       * {
@@ -67,9 +81,10 @@
         margin: 0;
         min-height: 100dvh;
         min-height: 100svh;
-        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        font-family: var(--font-body);
         background:
-          radial-gradient(ellipse 80% 45% at 50% -8%, rgba(129, 182, 76, 0.26), transparent 68%),
+          radial-gradient(ellipse 90% 50% at 50% -12%, var(--glow), transparent 70%),
+          radial-gradient(ellipse 55% 35% at 100% 100%, rgba(129, 182, 76, 0.08), transparent 55%),
           var(--bg);
         color: var(--text);
         display: grid;
@@ -77,24 +92,41 @@
         padding:
           max(1rem, env(safe-area-inset-top, 0px))
           max(1rem, env(safe-area-inset-right, 0px))
-          max(1rem, env(safe-area-inset-bottom, 0px))
+          max(1.25rem, env(safe-area-inset-bottom, 0px))
           max(1rem, env(safe-area-inset-left, 0px));
       }
 
-      .card {
-        width: min(100%, 26rem);
+      ::selection {
+        background: color-mix(in srgb, var(--play) 45%, transparent);
+        color: var(--text);
+      }
+
+      .shell {
+        width: min(100%, 28rem);
         border: 1px solid var(--border);
-        border-radius: 1.25rem;
+        border-radius: 1.35rem;
         overflow: hidden;
-        background: var(--card);
-        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        background: var(--panel);
+        box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+        animation: rise 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      @keyframes rise {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
       }
 
       .hero-wrap {
         position: relative;
         width: 100%;
         aspect-ratio: 16 / 9;
-        background: #111;
+        background: #0c0b09;
         overflow: hidden;
       }
 
@@ -106,62 +138,128 @@
         object-position: center;
       }
 
+      .hero-wrap::after {
+        content: '';
+        position: absolute;
+        inset: auto 0 0;
+        height: 42%;
+        background: linear-gradient(to top, var(--panel), transparent);
+        pointer-events: none;
+      }
+
       .body {
-        padding: 1.25rem 1.35rem calc(1.35rem + env(safe-area-inset-bottom, 0px));
+        padding: 0.35rem 1.4rem calc(1.45rem + env(safe-area-inset-bottom, 0px));
       }
 
       .brand {
         display: flex;
         align-items: center;
-        gap: 0.75rem;
-        margin-bottom: 0.9rem;
+        gap: 0.8rem;
+        margin-bottom: 1.05rem;
       }
 
       .brand img {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.65rem;
+        height: 2.65rem;
         flex-shrink: 0;
-        border-radius: 0.55rem;
+        border-radius: 0.6rem;
         -webkit-touch-callout: none;
         user-select: none;
         -webkit-user-select: none;
       }
 
-      h1 {
+      .brand-name {
         margin: 0;
-        font-size: 1.25rem;
+        font-family: var(--font-display);
+        font-size: 1.55rem;
         font-weight: 700;
-        letter-spacing: -0.02em;
-        line-height: 1.2;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
       }
 
-      .tag {
+      .brand-line {
         margin: 0.2rem 0 0;
-        font-size: 0.75rem;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--play);
+        letter-spacing: 0.01em;
+      }
+
+      h1 {
+        margin: 0 0 0.85rem;
+        font-family: var(--font-display);
+        font-size: clamp(1.55rem, 5.4vw, 1.85rem);
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        line-height: 1.15;
+      }
+
+      .lead,
+      .copy,
+      .copy p {
+        margin: 0;
+        line-height: 1.58;
         color: var(--muted);
-        line-height: 1.3;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .lead {
+        margin-bottom: 0.9rem;
+        color: #d6cec2;
+        font-size: 1.02rem;
+        font-weight: 600;
+        line-height: 1.5;
       }
 
       .copy {
-        margin: 0 0 1.15rem;
-        line-height: 1.5;
-        color: var(--muted);
-        font-size: 0.95rem;
+        display: grid;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .points {
+        margin: 0 0 1.3rem;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 0.55rem;
+      }
+
+      .points li {
+        position: relative;
+        padding-left: 1.15rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        line-height: 1.4;
+        color: #e8e1d6;
+      }
+
+      .points li::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.45em;
+        width: 0.45rem;
+        height: 0.45rem;
+        border-radius: 999px;
+        background: var(--play);
       }
 
       a.cta {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 0.4rem;
+        gap: 0.45rem;
         width: 100%;
-        min-height: 3rem;
-        padding: 0.85rem 1rem;
-        border-radius: 0.85rem;
+        min-height: 3.15rem;
+        padding: 0.9rem 1rem;
+        border-radius: 0.95rem;
         background: var(--play);
         color: var(--play-fg);
-        font-size: 1rem;
-        font-weight: 700;
+        font-size: 1.02rem;
+        font-weight: 800;
+        letter-spacing: -0.01em;
         text-decoration: none;
         touch-action: manipulation;
         user-select: none;
@@ -175,6 +273,11 @@
         filter: brightness(0.95);
       }
 
+      a.cta:focus-visible {
+        outline: 2px solid var(--play);
+        outline-offset: 3px;
+      }
+
       @media (hover: hover) and (pointer: fine) {
         a.cta:hover {
           filter: brightness(1.06);
@@ -182,20 +285,28 @@
       }
 
       .note {
-        margin: 0.85rem 0 0;
+        margin: 0.9rem 0 0;
         text-align: center;
-        font-size: 0.7rem;
+        font-size: 0.72rem;
+        font-weight: 600;
         color: var(--dim);
+        line-height: 1.45;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .shell {
+          animation: none;
+        }
       }
     </style>
   </head>
   <body>
-    <main class="card">
+    <main class="shell">
       <div class="hero-wrap">
         <img
           class="hero"
-          src="/checkstake-invite/og-survey.jpg"
-          alt="Checkstake"
+          src="/checkstake-invite/og-survey.jpg?v=3"
+          alt="Checkstake staked chess"
           width="1376"
           height="768"
           decoding="async"
@@ -206,23 +317,50 @@
           <img
             src="/checkstake-invite/brand/mark-only-green.png"
             alt=""
-            width="40"
-            height="40"
+            width="42"
+            height="42"
             decoding="async"
           />
           <div>
-            <h1>Checkstake</h1>
-            <p class="tag">Competitive chess · Real earnings</p>
+            <p class="brand-name">Checkstake</p>
+            <p class="brand-line">Kenya pilot · Waitlist open</p>
           </div>
         </div>
-        <p class="copy">
-          Checkstake is a chess platform built so players can compete and earn. We are currently
-          piloting in Kenya — join early and tell us how you want to play.
+
+        <h1>Your next chess win should mean something.</h1>
+
+        <p class="lead">
+          Checkstake is staked chess for serious players in Kenya — skill on the board, money in
+          escrow, and a fair pot for the winner.
         </p>
+
+        <div class="copy">
+          <p>
+            We’re opening a limited Kenya waitlist before public launch. Fund in KES, play for CMT,
+            and train free on puzzles and Stockfish while you wait for live seats. No casino spin.
+            No house RNG. Just chess.
+          </p>
+          <p>
+            Early joiners help shape the pilot: stakes that feel fair, matchmaking that respects
+            Elo, and payouts that actually clear. If you grind clubs in Nairobi, Mombasa, Kisumu —
+            or you just want your rating to pay — this is your door in.
+          </p>
+        </div>
+
+        <ul class="points" aria-label="Why join">
+          <li>Server escrow locks both stakes before move one</li>
+          <li>Free tactics + bot training with no deposit</li>
+          <li>Kenya-first wallet flow (KES → CMT)</li>
+          <li>Waitlist members get first access when seats open</li>
+        </ul>
+
         <a class="cta" href="https://forms.gle/FuNVjKKuPASwY3Qc7" rel="noopener">
-          Join the Kenya pilot <span aria-hidden="true">→</span>
+          Join the Kenya waitlist <span aria-hidden="true">→</span>
         </a>
-        <p class="note">Short intake form · about 3 minutes</p>
+        <p class="note">
+          Short form · about 3 minutes · 18+ only<br />
+          Seats are limited for the first wave
+        </p>
       </div>
     </main>
   </body>
