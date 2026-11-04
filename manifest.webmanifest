@@ -1,0 +1,17 @@
+{
+  "name": "Checkstake Kenya waitlist",
+  "short_name": "Checkstake",
+  "start_url": "/checkstake-invite/",
+  "scope": "/checkstake-invite/",
+  "display": "standalone",
+  "background_color": "#141310",
+  "theme_color": "#141310",
+  "icons": [
+    {
+      "src": "/checkstake-invite/brand/mark-only-green.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

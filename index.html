@@ -43,6 +43,7 @@
     <base href="https://matrixke.github.io/checkstake-invite/" />
     <link rel="icon" href="/checkstake-invite/brand/mark-only-green.png" type="image/png" />
     <link rel="apple-touch-icon" href="/checkstake-invite/brand/mark-only-green.png" />
+    <link rel="manifest" href="/checkstake-invite/manifest.webmanifest" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -293,6 +294,47 @@
         line-height: 1.45;
       }
 
+      .offline-banner {
+        display: none;
+        margin: 0 0 0.85rem;
+        padding: 0.55rem 0.75rem;
+        border-radius: 0.75rem;
+        background: #e8c35a;
+        color: #1a1405;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-align: center;
+      }
+      .offline-banner.show { display: block; }
+
+      button.secondary {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        min-height: 2.85rem;
+        margin-top: 0.65rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.95rem;
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text);
+        font-size: 0.92rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        touch-action: manipulation;
+      }
+      button.secondary:disabled { opacity: 0.45; cursor: not-allowed; }
+      .status {
+        margin: 0.65rem 0 0;
+        text-align: center;
+        font-size: 0.72rem;
+        color: var(--muted);
+        line-height: 1.45;
+        min-height: 1.1em;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .shell {
           animation: none;
@@ -302,6 +344,9 @@
   </head>
   <body>
     <main class="shell">
+      <div id="offlineBanner" class="offline-banner">
+        You’re offline — this page still works. Form opens when you’re back online; reminders work now.
+      </div>
       <div class="hero-wrap">
         <img
           class="hero"
@@ -354,14 +399,170 @@
           <li>Kenya-first wallet: KES in, payouts out</li>
         </ul>
 
-        <a class="cta" href="https://forms.gle/FuNVjKKuPASwY3Qc7" rel="noopener">
+        <a class="cta" id="openForm" href="https://forms.gle/FuNVjKKuPASwY3Qc7" rel="noopener">
           Join &amp; start earning path <span aria-hidden="true">→</span>
         </a>
+        <button class="secondary" id="remind" type="button">Remind me for 2 days if I forget</button>
+        <button class="secondary" id="copyForm" type="button">Copy form link</button>
+        <p class="status" id="status" aria-live="polite"></p>
         <p class="note">
           Kenya waitlist · about 3 minutes · 18+ only<br />
-          Play only what you can afford to lose
+          Play only what you can afford to lose<br />
+          NFC taps: open once online to cache — works offline after that
         </p>
       </div>
     </main>
+    <script>
+      (function () {
+        var FORM = 'https://forms.gle/FuNVjKKuPASwY3Qc7';
+        var KEY = 'cs_invite_nfc_v1';
+        var QUEUE = 'cs_invite_form_queue_v1';
+        var TWO_DAYS = 2 * 24 * 60 * 60 * 1000;
+
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker
+            .register('/checkstake-invite/sw.js', { scope: '/checkstake-invite/' })
+            .catch(function () {});
+        }
+
+        function online() { return navigator.onLine !== false; }
+        function read() {
+          try { return JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) { return null; }
+        }
+        function write(s) {
+          try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {}
+        }
+
+        var state = read() || {
+          visitedAt: Date.now(),
+          remindUntil: Date.now() + TWO_DAYS,
+          formOpened: false,
+          reminderArmed: false
+        };
+        write(state);
+
+        var banner = document.getElementById('offlineBanner');
+        var status = document.getElementById('status');
+        var remindBtn = document.getElementById('remind');
+        var openForm = document.getElementById('openForm');
+
+        function paint() {
+          banner.classList.toggle('show', !online());
+          remindBtn.disabled = !!state.formOpened;
+          remindBtn.textContent = state.reminderArmed
+            ? 'Reminders armed (re-download calendar)'
+            : 'Remind me for 2 days if I forget';
+        }
+        paint();
+
+        function markOpened() {
+          state.formOpened = true;
+          write(state);
+          try { localStorage.removeItem(QUEUE); } catch (e) {}
+          paint();
+        }
+
+        openForm.addEventListener('click', function (e) {
+          if (!online()) {
+            e.preventDefault();
+            try { localStorage.setItem(QUEUE, '1'); } catch (err) {}
+            status.textContent = 'You’re offline. Form queued — opens when signal returns (or copy the link).';
+            return;
+          }
+          markOpened();
+        });
+
+        document.getElementById('copyForm').addEventListener('click', function () {
+          function done() { status.textContent = 'Form link copied.'; }
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(FORM).then(done).catch(function () {
+              window.prompt('Copy form link:', FORM); done();
+            });
+          } else {
+            window.prompt('Copy form link:', FORM); done();
+          }
+        });
+
+        function flush() {
+          var q = false;
+          try { q = localStorage.getItem(QUEUE) === '1'; } catch (e) {}
+          if (q && online() && !state.formOpened) {
+            markOpened();
+            window.open(FORM, '_blank', 'noopener,noreferrer');
+          }
+          paint();
+        }
+        window.addEventListener('online', flush);
+        window.addEventListener('offline', paint);
+        flush();
+
+        function stamp(ms) {
+          var d = new Date(ms);
+          function p(n) { return String(n).padStart(2, '0'); }
+          return d.getUTCFullYear() + p(d.getUTCMonth() + 1) + p(d.getUTCDate()) + 'T' +
+            p(d.getUTCHours()) + p(d.getUTCMinutes()) + p(d.getUTCSeconds()) + 'Z';
+        }
+
+        remindBtn.addEventListener('click', function () {
+          var start = Date.now();
+          var events = [];
+          for (var i = 1; i <= 2; i++) {
+            var when = start + i * 24 * 60 * 60 * 1000;
+            events.push([
+              'BEGIN:VEVENT',
+              'UID:invite-' + start + '-d' + i + '@checkstake-invite',
+              'DTSTAMP:' + stamp(Date.now()),
+              'DTSTART:' + stamp(when),
+              'DTEND:' + stamp(when + 15 * 60 * 1000),
+              'SUMMARY:Finish your Checkstake waitlist form',
+              'DESCRIPTION:Open the Kenya waitlist form.\\n' + FORM,
+              'URL:' + FORM,
+              'BEGIN:VALARM',
+              'TRIGGER:-PT5M',
+              'ACTION:DISPLAY',
+              'DESCRIPTION:Checkstake waitlist',
+              'END:VALARM',
+              'END:VEVENT'
+            ].join('\r\n'));
+          }
+          var ics = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Checkstake Invite//EN',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            events.join('\r\n'),
+            'END:VCALENDAR'
+          ].join('\r\n');
+          var blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'checkstake-waitlist-reminders.ics';
+          a.click();
+          URL.revokeObjectURL(url);
+
+          if (window.Notification && Notification.permission !== 'granted') {
+            Notification.requestPermission().catch(function () {});
+          }
+          if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+            navigator.serviceWorker.controller.postMessage({
+              type: 'nfc-schedule-reminders',
+              title: 'Finish your Checkstake waitlist form',
+              body: 'You tapped the NFC card — open the form when you can.',
+              href: FORM,
+              until: Date.now() + TWO_DAYS,
+              checkpoints: [Date.now() + 12 * 60 * 60 * 1000, Date.now() + 36 * 60 * 60 * 1000]
+            });
+          }
+
+          state.reminderArmed = true;
+          state.remindUntil = Date.now() + TWO_DAYS;
+          write(state);
+          paint();
+          status.textContent = 'Calendar file saved. Open it to add tomorrow + day-after alerts.';
+        });
+      })();
+    </script>
   </body>
 </html>
